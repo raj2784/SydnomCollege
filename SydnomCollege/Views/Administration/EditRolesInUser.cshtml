@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore
+@using SydnomCollege.ModelView
+
+@model List<EditRolesInUserViewModel>
+@{
+    ViewData["Title"] = "EditRolesInUser";
+    var userId = ViewBag.userId;
+}
+
+<h3>Edit Roles In User</h3>
+
+<form method="post">
+    <div class="card">
+        <div class="card-header">
+            <h2>Add or remove roles from this user</h2>
+        </div>
+        <div class="card-body">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="form-check m-1">
+                    <input type="hidden" asp-for="@Model[i].RoleId" />
+                    <input type="hidden" asp-for="@Model[i].RoleName" />
+                    <input asp-for="@Model[i].IsSelected" class="from-chek-input" />
+                    <label class="from-chek-label" asp-for="@Model[i].IsSelected">
+                        @Model[i].RoleName
+                    </label>
+                </div>
+            }
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-footer">
+            <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
+            <a asp-action="EditUser" asp-route-id="@userId" asp-controller="administration" style="width:auto" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+</form>
