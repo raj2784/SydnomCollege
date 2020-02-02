@@ -84,8 +84,13 @@ namespace SydnomCollege
 							
 			});
 
+			//For MSSQL Databse
 			services.AddDbContextPool<StudentContext>(options => options.UseSqlServer(Configuration.GetConnectionString("EntConncetion")));
+
+			//For Oracle Database
 			//services.AddDbContextPool<StudentContext>(options => options.UseOracle(Configuration.GetConnectionString("EntConncetion")));
+
+			//For MySQl Database
 			//services.AddDbContextPool<StudentContext>(options => options.UseMySQL(Configuration.GetConnectionString("EntConncetion")));
 
 			services.AddIdentity<IdentityUser, IdentityRole>(options =>

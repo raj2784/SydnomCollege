@@ -73,12 +73,14 @@
                 <td>
                     <button>@Html.ActionLink("Edit", "Edit", "Students", new { Id = item.StudentId }, new { @class = "btn btn-success btn-sm" })</button>
                     <button>@Html.ActionLink("Detalis", "Details", "Students", new { Id = item.StudentId }, new { @class = "btn btn-primary btn-sm" })</button>
-                    <button>@Html.ActionLink("Delete", "Delete", "Students", new { Id = item.StudentId }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are you sure you wish to delete this record?')" })</button>
+                    <button>@Html.ActionLink("Delete", "Delete", "Students", new { Id = item.StudentId }, new { @class = "btn btn-danger btn-sm", 
+                                                    onclick = "return confirm('Are you sure you wish to delete this record?')" })</button>
 
 
-                    @*<a asp-action="Edit" asp-route-id="@item.StudentId"class = "btn btn-success btn-sm">Edit</a> |
+                        @*<a asp-action="Edit" asp-route-id="@item.StudentId"class = "btn btn-success btn-sm">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.StudentId"class = "btn btn-primary btn-sm">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.StudentId" class="btn btn-danger btn-sm" onclick="return confirm('are you sure you want to delete this record??')">Delete</a>*@
+                        <a asp-action="Delete" asp-route-id="@item.StudentId" class="btn btn-danger btn-sm" 
+                                               onclick="return confirm('are you sure you want to delete this record??')">Delete</a>*@
                 </td>
             </tr>
         }
@@ -106,7 +108,8 @@
             <div class="card-footer text-center">
                 <a asp-controller="Students" asp-action="Edit" asp-route-id="@employee.StudentId" class="btn btn-primary m-1">Edit</a>
                 <a asp-controller="Students" asp-action="Details" asp-route-id="@employee.StudentId" class="btn btn-primary m-1">Details</a>
-                <a asp-controller="Students" asp-action="Delete" asp-route-id="@employee.StudentId" class="btn btn-danger" onclick="return confirm('are you sure you want to delete this record??')" m-1">Delete</a>
+                <a asp-controller="Students" asp-action="Delete" asp-route-id="@employee.StudentId" 
+                      class="btn btn-danger m-1" onclick="return confirm('are you sure you want to delete this record??')">Delete</a>
 
             </div>
 

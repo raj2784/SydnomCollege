@@ -7,7 +7,6 @@
 
 <h1>Details</h1>
 
-
 <div>
     <a asp-action="Edit" asp-route-id="@Model.StudentId">Edit</a> |
     <a asp-action="Index">Back to List</a>
@@ -23,7 +22,7 @@
                 <img class="card-img-top" src="@photopath" asp-append-version="true" height="400" width="100" />
                 <h6>Student Id : @Model.StudentId</h6>
                 <h6>Email : @Model.Email</h6>
-                <h6>Email : @Model.Dob</h6>
+                <h6>Dob : @Model.Dob</h6>
                 <h6>Grade : @Model.Grade</h6>
                 <h6>City : @Model.City</h6>
 

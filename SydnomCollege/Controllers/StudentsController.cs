@@ -24,7 +24,7 @@ namespace SydnomCollege.Controllers
 
 		public StudentsController(StudentContext context,
 								IHostingEnvironment hostingEnvironment,
-								ILogger<StudentsController>logger)
+								ILogger<StudentsController> logger)
 		{
 			db = context;
 			this.hostingEnvironment = hostingEnvironment;
@@ -104,7 +104,7 @@ namespace SydnomCollege.Controllers
 			{
 
 				string PhotoName = FileProccesingUpload(model);
-							   				 
+
 				Student newStudent = new Student
 				{
 					Name = model.Name,
@@ -146,36 +146,36 @@ namespace SydnomCollege.Controllers
 		[HttpPost]
 		public IActionResult Edit(StudentEditViewModel model)
 		{
-			//if(ModelState.IsValid)
-			//{ 
-			Student std = db.Students.Find(model.Id);
-			std.Name = model.Name;
-			std.Email = model.Email;
-			std.Dob = model.Dob;
-			std.Grade = model.Grade;
-			std.City = model.City;
-			if (model.Photo != null)
+			if (ModelState.IsValid)
 			{
-				if (model.ExistingPhotoPath != null)
+				Student std = db.Students.Find(model.Id);
+				std.Name = model.Name;
+				std.Email = model.Email;
+				std.Dob = model.Dob;
+				std.Grade = model.Grade;
+				std.City = model.City;
+				if (model.Photo != null)
 				{
-					string PhotoPath = Path.Combine(hostingEnvironment.WebRootPath, "Images", model.ExistingPhotoPath);
-					System.IO.File.Delete(PhotoPath);
+					if (model.ExistingPhotoPath != null)
+					{
+						string PhotoPath = Path.Combine(hostingEnvironment.WebRootPath, "Images", model.ExistingPhotoPath);
+						System.IO.File.Delete(PhotoPath);
+					}
+					std.PhotoPath = FileProccesingUpload(model);
 				}
-				std.PhotoPath = FileProccesingUpload(model);
+
+				db.Update(std);
+				db.SaveChanges();
+				TempData["Success"] = "Student data Updated successfully.";
+				return RedirectToAction("Index", "Students");
+				//return RedirectToAction(nameof(Index));
+
 			}
-
-			db.Update(std);
-			db.SaveChanges();
-			TempData["Success"] = "Student data Updated successfully.";
-			return RedirectToAction("Index", "Students");
-			//return RedirectToAction(nameof(Index));
-
-			//}
-			//return View();
+			return View();
 
 		}
 		[HttpGet]
-		public ActionResult Delete(int? id)
+		public IActionResult Delete(int? id)
 		{
 			if (id == null)
 			{

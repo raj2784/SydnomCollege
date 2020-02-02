@@ -27,6 +27,7 @@
               asp-fallback-test-value="absolute"
               asp-suppress-fallback-integrity="true">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
         <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
@@ -53,19 +54,7 @@
                     <li class="nav-item">
                         <a asp-action="index" asp-controller="Students" class="nav-link">Index</a>
                     </li>
-                    @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-action="ListUsers" asp-controller="administration">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-action="ListRoles" asp-controller="administration">Roles</a>
-                        </li>
-
-                    }
-                    <li class="nav-item">
-                        <a class="nav-link" asp-action="Changepassword" asp-controller="account">Password</a>
-                    </li>
+                
 
                     @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
@@ -79,7 +68,7 @@
 
                                 <a class="dropdown-item" asp-action="ListRoles" asp-controller="administration">Roles</a>
 
-                                <a class="nav-link" asp-action="Changepassword" asp-controller="account">Password</a>
+                                <a class="dropdown-item" asp-action="ChangePassword" asp-controller="account">Password</a>
                             </div>
 
                         </li>
@@ -107,21 +96,24 @@
             </div>
 
         </nav>
-    </div>
 
+        @RenderBody()
+
+
+
+
+    </div>
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
-            @RenderBody()
         </main>
     </div>
 
-    <footer class="border-bottom footer text-muted">
-        <div class="container align-bottom">
+    <footer class="border-top footer text-muted mt-auto">
+        <div class="container">
             &copy; 2019 - SydnomCollege - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -147,4 +139,5 @@
     @RenderSection("Scripts", required: false)
 
 </body>
+
 </html>

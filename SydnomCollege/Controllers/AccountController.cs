@@ -52,16 +52,17 @@ namespace SydnomCollege.Controllers
 					// for Email Confrimation 
 					var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
-					var confrimationLink = Url.Action("ConfirmEmail", "Account",
+					var confirmationLink = Url.Action("ConfirmEmail", "Account",
 									new { userId = user.Id, token = token }, Request.Scheme);
 
-					logger.Log(LogLevel.Warning, confrimationLink);
+					logger.Log(LogLevel.Warning, confirmationLink);
 
 					if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
 					{
 						return RedirectToAction("ListUsers", "Administration");
 					}
-					using (MailMessage mm = new MailMessage(new MailAddress("Dotnet2784@gmail.com", "Synom College Admin"), new MailAddress(model.Email)))
+					using (MailMessage mm = new MailMessage(new MailAddress("Dotnet2784@gmail.com", 
+						                               "Sydnom College Admin"), new MailAddress(model.Email)))
 					//customise name here
 					{
 						try
@@ -69,7 +70,7 @@ namespace SydnomCollege.Controllers
 							//customise subject here
 							mm.Subject = "Sydnom/Email ConfirmationLink do not reply!";
 							//customise mail body here
-							mm.Body = confrimationLink;
+							mm.Body = confirmationLink;
 							mm.IsBodyHtml = true;
 							SmtpClient smtp = new SmtpClient();
 							smtp.Host = /*"smtp-mail.outlook.com";*/"smtp.gmail.com";
@@ -211,7 +212,7 @@ namespace SydnomCollege.Controllers
 		public IActionResult ExternalLogin(string provider, string returnUrl)
 		{
 			var redirectUrl = Url.Action("ExternalLoginCallback", "Account",
-											new { ReturnUrl = returnUrl });
+											              new { ReturnUrl = returnUrl });
 
 			var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
 			return new ChallengeResult(provider, properties);
@@ -239,7 +240,7 @@ namespace SydnomCollege.Controllers
 				return View("Login", loginViewModel);
 			}
 
-			// use this if u want to confrim external login email
+			// this code for confrim external login email.
 
 			var email = info.Principal.FindFirstValue(ClaimTypes.Email);
 
@@ -255,8 +256,10 @@ namespace SydnomCollege.Controllers
 					return View("Login", loginViewModel);
 				}
 			}
+			// External email confrimation code ends here.
+
 			var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey,
-																	isPersistent: false, bypassTwoFactor: true);
+																	                 isPersistent: false, bypassTwoFactor: true);
 
 			if (signInResult.Succeeded)
 			{
