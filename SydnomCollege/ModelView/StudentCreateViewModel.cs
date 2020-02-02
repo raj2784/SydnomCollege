@@ -22,7 +22,7 @@ namespace SydnomCollege.ModelView
 		[Required]
 		[DateRangeAtribute("01/07/2000")]
 		[DataType(DataType.DateTime)]
-		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+		//[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
 		public DateTime Dob { get; set; }
 		[Required]
 		[Range(50, 99, ErrorMessage = "Grade Accepted from 50 to 100 only")]
